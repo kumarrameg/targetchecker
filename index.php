@@ -116,7 +116,7 @@ echo '<div id="sample">';
           <!-- <input type="date" name="currentdate"> -->
         </div>
         <div class="form-group">
-            <input type="text" name="incesment" id="incesment">
+            <input type="text" name="incesment" id="incesment" value="10">
           <textarea class="form-control" name="signalresults" rows="21" id="comment"></textarea>
         </div>
         <button type="submit" class="btn btn-primary" name="submit-btn" value="submit">Submit</button>
