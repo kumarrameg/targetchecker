@@ -6,6 +6,7 @@ if (isset($_POST["submit-btn"]))
 {
     
     $profitLossAmount=0;
+    $incesment_value= $_POST["incesment"];
     $afteraddchar= preg_replace('/^/m', '!', $_POST["signalresults"]);
     $oneDArray = array_filter(explode('!', $afteraddchar));
     $twoDArray = [];
@@ -25,14 +26,19 @@ echo '<div id="sample">';
       if($singlePairResult[3]=='⛔' || $singlePairResult[3]== '⛔️' || $singlePairResult[3]== 'DOJI'){
         
         
-          $profitLossAmount=$profitLossAmount-10;      
+          $profitLossAmount=$profitLossAmount-$incesment_value;      
+          $singlePairResult['target'] =$profitLossAmount;
+        }
+        else if($singlePairResult[4]=='¹' || $singlePairResult[4]== '¹ '){
+          $profitLossAmount=$profitLossAmount+(($incesment_value*2*0.85)-$incesment_value);
+          $singlePairResult['target'] =$profitLossAmount;
+        }
+        else if($singlePairResult[3]=='✅' || $singlePairResult[3]== '✅'){
+          $profitLossAmount=$profitLossAmount+($incesment_value*0.85);
           $singlePairResult['target'] =$profitLossAmount;
         }
         
-        else if($singlePairResult[3]=='✅' || $singlePairResult[3]== '✅'){
-          $profitLossAmount=$profitLossAmount+8.5;
-          $singlePairResult['target'] =$profitLossAmount;
-        }else{
+        else{
           continue;
         }
       
@@ -110,6 +116,7 @@ echo '<div id="sample">';
           <!-- <input type="date" name="currentdate"> -->
         </div>
         <div class="form-group">
+            <input type="text" name="incesment" id="incesment">
           <textarea class="form-control" name="signalresults" rows="21" id="comment"></textarea>
         </div>
         <button type="submit" class="btn btn-primary" name="submit-btn" value="submit">Submit</button>
